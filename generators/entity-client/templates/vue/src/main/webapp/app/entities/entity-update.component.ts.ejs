@@ -102,7 +102,7 @@ export default class <%= entityAngularName %>Update extends <% if (fieldsContain
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      if (to.params.<%= entityInstance %>Id) {
+      if (to.params.<%= entityInstance %>Id || to.params.<%= entityInstance %>Id === 0) {
         vm.retrieve<%= entityAngularName %>(to.params.<%= entityInstance %>Id);
       }
       <%_ if (relationships.length > 0) { _%>
@@ -130,7 +130,7 @@ export default class <%= entityAngularName %>Update extends <% if (fieldsContain
         const fieldName = fields[ idx ].fieldName;
         const fieldType = fields[idx].fieldType;
     } _%>
-    if (this.<%= entityInstance %>.id) {
+    if (this.<%= entityInstance %>.id || this.<%= entityInstance %>.id === 0) {
       this.<%= entityInstance %>Service().update(this.<%= entityInstance %>).then((param) => {
         this.isSaving = false;
         this.$router.go(-1);
